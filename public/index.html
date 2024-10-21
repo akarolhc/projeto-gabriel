@@ -1,0 +1,34 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encrypt Message</title>
+</head>
+<body>
+    <h1>Encrypt a Message</h1>
+    <form action="/encrypt" method="POST">
+        <label for="message">Message:</label>
+        <input type="text" id="message" name="message" required>
+        <button type="submit">Encrypt</button>
+    </form>
+    <div>
+        <h2>Encrypted Message:</h2>
+        <pre id="encryptedMessage"></pre>
+    </div>
+
+    <script>
+        document.querySelector('form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const response = await fetch('/encrypt', {
+                method: 'POST',
+                body: formData
+            });
+            const encryptedMessage = await response.text();
+            document.getElementById('encryptedMessage').textContent = encryptedMessage;
+        });
+    </script>
+</body>
+</html>
