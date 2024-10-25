@@ -1,16 +1,27 @@
 const crypto = require('crypto');
 
-const { publicKey, privateKey } = crypto.generateKeyPairSync('rsa', {
-  modulusLength: 2048,
-  publicKeyEncoding: {
-    type: 'spki',
-    format: 'pem',
-  },
-  privateKeyEncoding: {
-    type: 'pkcs8',
-    format: 'pem',
-  },
-});
+const privateKey = crypto.generateKeyPairSync('rsa', {
+    modulusLength: 2048,
+    publicKeyEncoding: {
+        type: 'spki',
+        format: 'pem',
+    },
+    privateKeyEncoding: {
+        type: 'pkcs8',
+        format: 'pem',
+    },
+}).privateKey;
 
-console.log('Public Key:', publicKey);
-console.log('Private Key:', privateKey);
+const publicKey = crypto.generateKeyPairSync('rsa', {
+    modulusLength: 2048,
+    publicKeyEncoding: {
+        type: 'spki',
+        format: 'pem',
+    },
+    privateKeyEncoding: {
+        type: 'pkcs8',
+        format: 'pem',
+    },
+}).publicKey;
+
+module.exports = { publicKey, privateKey };

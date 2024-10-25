@@ -19,16 +19,20 @@
     </div>
 
     <script>
-        document.querySelector('form').addEventListener('submit', async (event) => {
-            event.preventDefault();
-            const formData = new FormData(event.target);
+        document.querySelector('form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const message = document.querySelector('#message').value;
             const response = await fetch('/encrypt', {
                 method: 'POST',
-                body: formData
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message })
             });
-            const encryptedMessage = await response.text();
-            document.getElementById('encryptedMessage').textContent = encryptedMessage;
+            const data = await response.json();
+            document.querySelector('#encryptedMessage').textContent = data.encrypted;
         });
     </script>
+        
 </body>
 </html>
