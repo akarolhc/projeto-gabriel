@@ -21,19 +21,17 @@
     <script>
         document.querySelector('form').addEventListener('submit', async (event) => {
             event.preventDefault();
-            const formData = new FormData(event.target);
-            const message = formData.get('message'); // Supondo que o campo no formulário se chame "message"
-    
-            const response = await fetch('/encrypt', {
+            const message = document.querySelector('input').value;  
+            const response = await fetch('/decrypt', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json' // Definindo o cabeçalho correto
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ message }) // Enviando o corpo como JSON
+                body: JSON.stringify({ message })
             });
-    
-            const encryptedMessage = await response.text();
-            document.getElementById('encryptedMessage').textContent = encryptedMessage; // Mostrando a mensagem criptografada
+            const data = await response.json();
+            document.querySelector('#decryptedMessage').textContent = data.decrypted;
+        
         });
     </script>
     
